@@ -23,7 +23,7 @@ Choose output mode based on user request:
 3. **Choose diagram type** based on content structure
 4. **Generate Excalidraw JSON** following design rules below
 5. **Output in correct format** based on mode
-6. **Save to vault** at requested path or `/home/ric/Documents/Vault/0. Inbox/`
+6. **Save to file** at the path specified by the user (always ask if not provided)
 
 ## Output Formats
 
