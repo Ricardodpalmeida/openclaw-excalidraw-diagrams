@@ -9,21 +9,25 @@ Create Excalidraw diagrams from text content with multiple output formats compat
 
 ## Output Modes
 
-Choose output mode based on user request:
+The user must explicitly request a diagram. Do not generate or save files unless the user asks for one.
 
-| Mode | Trigger Words | File Extension | Use Case |
-|------|---------------|----------------|----------|
-| **Obsidian (default)** | "Excalidraw", "diagram", "flowchart", "mind map", "draw" | `.md` | Open directly in Obsidian with Excalidraw plugin |
-| **Standard** | "standard excalidraw", "excalidraw.com" | `.excalidraw` | Open on excalidraw.com |
+| Mode | When to use | File Extension | Use Case |
+|------|-------------|----------------|----------|
+| **Obsidian** | User asks for an Obsidian/Excalidraw diagram | `.md` | Open directly in Obsidian with Excalidraw plugin |
+| **Standard** | User asks for a standard/excalidraw.com file | `.excalidraw` | Open on excalidraw.com |
+
+If the mode is ambiguous, ask the user which format they want.
 
 ## Process
 
-1. **Detect output mode** from trigger words (default to Obsidian mode)
+1. **Confirm output mode** with the user if ambiguous
 2. **Analyze content** - identify concepts, relationships, hierarchy
 3. **Choose diagram type** based on content structure
 4. **Generate Excalidraw JSON** following design rules below
 5. **Output in correct format** based on mode
-6. **Save to file** at the path specified by the user (always ask if not provided)
+6. **Ask the user** for the save path and filename before writing
+7. **Check if file exists** at the target path. If it does, ask before overwriting
+8. **Save the file** only after user confirmation
 
 ## Output Formats
 
@@ -287,12 +291,17 @@ Example: Text "Hello" (5 chars, 20px) centered at x=300:
 
 ## File Naming
 
-Generate descriptive filenames based on content:
+Suggest descriptive filenames based on content, but always confirm with the user before saving:
 
 | Mode | Format | Example |
 |------|--------|---------|
 | Obsidian | `[topic].[type].md` | `system-architecture.diagram.md` |
 | Standard | `[topic].[type].excalidraw` | `system-architecture.diagram.excalidraw` |
+
+**Before writing any file:**
+- Confirm the full save path and filename with the user
+- If a file already exists at that path, warn the user and ask before overwriting
+- Never write files silently or to assumed default paths
 
 ## Example User Messages
 
@@ -305,7 +314,7 @@ Generate descriptive filenames based on content:
 
 When generating a diagram:
 
-1. [ ] Determine output mode (Obsidian default, Standard if requested)
+1. [ ] Confirm output mode with user (Obsidian or Standard)
 2. [ ] Analyze content and select diagram type
 3. [ ] Plan layout (positions, connections, groupings)
 4. [ ] Generate elements with:
@@ -315,5 +324,7 @@ When generating a diagram:
    - [ ] Correct bindings for arrows and labels
 5. [ ] Validate JSON is syntactically correct
 6. [ ] Wrap in appropriate output format
-7. [ ] Save to correct location
-8. [ ] Report file path and usage instructions to user
+7. [ ] Confirm save path and filename with user
+8. [ ] Check for existing file at target path (warn if exists)
+9. [ ] Save only after user confirmation
+10. [ ] Report file path and usage instructions to user
