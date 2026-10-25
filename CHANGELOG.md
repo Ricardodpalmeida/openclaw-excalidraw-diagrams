@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1
+
+- Sharper description and README, plus links to the author's other skills and site. No code changes.
+
 ## 1.1.0 (unreleased)
 
 - New `scripts/build_diagram.py`. It builds a drawing from a JSON spec of nodes, edges and groups. It does the layered layout (with cycle support and detours around nodes), label sizing, two-way text and arrow bindings and deterministic IDs, and writes either the Obsidian or the standard format. It refuses to overwrite without `--force`.

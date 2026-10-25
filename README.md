@@ -1,8 +1,13 @@
-# Excalidraw diagrams skill for OpenClaw
+# ✏️ Excalidraw Diagrams for Obsidian
 
-An OpenClaw skill that turns a short description of boxes and connections into an Excalidraw drawing: an Obsidian Excalidraw note (`.excalidraw.md`) or a `.excalidraw` file for excalidraw.com.
+**Describe the boxes and arrows. Get a clean, hand-drawn Excalidraw diagram that opens straight in Obsidian.**
 
-Language models are bad at writing Excalidraw JSON by hand. They misplace labels, leave arrows unbound and produce overlapping shapes. This skill has the agent write a small spec instead, and a deterministic Python script does the layout, text and arrow bindings, IDs and file wrapper. A second script validates the result.
+Language models are bad at writing Excalidraw JSON by hand. Labels drift out of shapes, arrows come loose and boxes pile up. This OpenClaw skill has the agent write a short spec instead, and a deterministic, dependency-free Python script does the rest.
+
+- **Real layout.** Layered flowcharts, pipelines and architecture diagrams in either direction, with groups, cycles and arrows routed around nodes.
+- **Files that behave.** Text and arrows bound both ways, so nothing detaches when you move a shape, and the Obsidian `.excalidraw.md` format with searchable labels.
+- **Checked before handover.** A validator catches broken bindings, unreadable fonts and overlaps.
+- **Safe with your vault.** It asks for the path, never overwrites without your OK and makes no network calls.
 
 ## Install
 
@@ -28,3 +33,14 @@ Open the file on excalidraw.com, or use a `.excalidraw.md` name and open it in O
 ## License
 
 MIT-0, as published on ClawHub.
+
+## More from the author
+
+Made by Ricardo Pacheco de Almeida. I write about applied AI, agents and enterprise architecture at [ricbits](https://me.ricbits.cc).
+
+| Skill | What it does |
+|-------|--------------|
+| [whetstone](https://github.com/Ricardodpalmeida/whetstone) | Makes a coding agent size every change by risk before it touches anything, then scale the process to match. |
+| [LadybugDB openCypher](https://clawhub.ai/ricardodpalmeida/ladybug-opencypher-updated) | Design and query LadybugDB graphs with openCypher, including imports, full-text search and Neo4j query adaptation. |
+| [Book Capture for Obsidian](https://clawhub.ai/ricardodpalmeida/book-capture-obsidian) | Turns a cover photo, barcode, ISBN or Goodreads export into linked Obsidian book notes and a library dashboard. |
+| [Microsoft Learn MCP](https://clawhub.ai/ricardodpalmeida/mslearn-mcp) | Grounds Azure, .NET, Microsoft 365 and Power Platform answers in official Microsoft Learn docs. |
