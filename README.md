@@ -32,7 +32,7 @@ Open the file on excalidraw.com, or use a `.excalidraw.md` name and open it in O
 
 ## License
 
-MIT-0, as published on ClawHub.
+[MIT-0](LICENSE) (MIT No Attribution): use, copy, modify and redistribute it for any purpose, with no attribution required. The same license applies on ClawHub.
 
 ## More from the author
 
