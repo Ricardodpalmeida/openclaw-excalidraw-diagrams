@@ -36,7 +36,7 @@ Open the file on excalidraw.com, or use a `.excalidraw.md` name and open it in O
 
 ## More from the author
 
-Made by Ricardo Pacheco de Almeida. I write about applied AI, agents and enterprise architecture at [ricbits](https://me.ricbits.cc).
+Made by Ricardo Pacheco Almeida. I write about applied AI, agents and enterprise architecture at [ricbits](https://me.ricbits.cc).
 
 | Skill | What it does |
 |-------|--------------|

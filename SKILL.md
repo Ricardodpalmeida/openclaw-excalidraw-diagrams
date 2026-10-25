@@ -1,6 +1,7 @@
 ---
 name: excalidraw-diagrams
 description: "Turn a plain list of boxes and arrows into a clean, hand-drawn Excalidraw diagram: an Obsidian Excalidraw note (.excalidraw.md) or a .excalidraw file for excalidraw.com. A deterministic script does the layout, labels and arrow bindings. Use only when the user explicitly asks for an Excalidraw drawing or an Excalidraw file in Obsidian."
+license: MIT-0
 homepage: https://github.com/Ricardodpalmeida/openclaw-excalidraw-diagrams
 metadata:
   {
@@ -75,4 +76,4 @@ Color conventions that read well: blue for clients and entry points, purple for 
 
 ## More from the author
 
-Made by Ricardo Pacheco de Almeida, who writes about applied AI at [ricbits](https://me.ricbits.cc). Other OpenClaw skills: [whetstone](https://github.com/Ricardodpalmeida/whetstone), [LadybugDB openCypher](https://clawhub.ai/ricardodpalmeida/ladybug-opencypher-updated), [Book Capture for Obsidian](https://clawhub.ai/ricardodpalmeida/book-capture-obsidian), [Microsoft Learn MCP](https://clawhub.ai/ricardodpalmeida/mslearn-mcp).
+Made by Ricardo Pacheco Almeida, who writes about applied AI at [ricbits](https://me.ricbits.cc). Other OpenClaw skills: [whetstone](https://github.com/Ricardodpalmeida/whetstone), [LadybugDB openCypher](https://clawhub.ai/ricardodpalmeida/ladybug-opencypher-updated), [Book Capture for Obsidian](https://clawhub.ai/ricardodpalmeida/book-capture-obsidian), [Microsoft Learn MCP](https://clawhub.ai/ricardodpalmeida/mslearn-mcp).
