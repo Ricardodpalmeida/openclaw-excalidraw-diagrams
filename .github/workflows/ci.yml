@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m unittest discover -s tests -v
+      - name: Build and validate the examples
+        run: |
+          for spec in examples/*.json; do
+            name=$(basename "$spec" .json)
+            python scripts/build_diagram.py --spec "$spec" --out "$RUNNER_TEMP/$name.excalidraw.md"
+            python scripts/validate.py "$RUNNER_TEMP/$name.excalidraw.md"
+          done
