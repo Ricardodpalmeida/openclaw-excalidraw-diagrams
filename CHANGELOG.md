@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.5
+
+- Restore the public display name to Excalidraw Diagrams for Obsidian. Drawing behavior is unchanged.
+
 ## 1.1.4
 
 - Condense workflow and remove redundant format questions while retaining the complete spec, reciprocal bindings, overwrite scope and compressed-validation limits.
