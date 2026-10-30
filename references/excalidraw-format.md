@@ -1,8 +1,8 @@
 # Excalidraw file format reference
 
-Contents: [Standard file (.excalidraw)](#standard-file-excalidraw) · [Obsidian file (.excalidraw.md)](#obsidian-file-excalidrawmd) · [Text Elements](#text-elements) · [Drawing](#drawing) · [Element fields](#element-fields) · [Bindings must be two-way](#bindings-must-be-two-way) · [Palette](#palette)
+Contents: [Standard file (.excalidraw)](#standard-file-excalidraw) · [Obsidian file (.excalidraw.md)](#obsidian-file-excalidrawmd) · [Element fields](#element-fields) · [Bindings must be two-way](#bindings-must-be-two-way) · [Palette](#palette)
 
-Use this when editing a drawing by hand or when `build_diagram.py` cannot express the layout. Always run `scripts/validate.py` on the result. Checked against `@excalidraw/excalidraw` 0.18 and the Obsidian Excalidraw plugin's file layout.
+For manual layouts/edits, then `scripts/validate.py`. Baseline: `@excalidraw/excalidraw` 0.18 and the Obsidian plugin file layout.
 
 ## Standard file (.excalidraw)
 
@@ -19,7 +19,7 @@ Use this when editing a drawing by hand or when `build_diagram.py` cannot expres
 
 ## Obsidian file (.excalidraw.md)
 
-The plugin recognises a note by its frontmatter. Labels are listed under `## Text Elements`, each followed by ` ^<element id>`, so Obsidian search and block links can see them. The scene JSON sits between `%%` markers, which hides it in reading view.
+Frontmatter identifies an Obsidian drawing. `## Text Elements` exposes labels to search/block links; ` ^<id>` binds each label. `%%` hides scene JSON in reading view.
 
 ````markdown
 ---
@@ -48,7 +48,7 @@ If the plugin saves the note with compression on, the block becomes ```` ```comp
 
 ## Element fields
 
-Every element needs `id`, `type`, `x`, `y`, `width` and `height`. Excalidraw fills in the rest with defaults when it loads a file, but writing them out keeps rendering stable:
+Required: `id`, `type`, `x`, `y`, `width`, `height`. Write these additional fields for stable rendering:
 
 | Field | Value |
 |-------|-------|
@@ -92,7 +92,7 @@ A binding is `{"elementId": "<shape id>", "focus": 0, "gap": 4, "fixedPoint": nu
 - A label on an arrow: same pattern, with the arrow as the container.
 - An arrow between shapes: `startBinding`/`endBinding` name the shapes, and each shape's `boundElements` contains `{"id": "<arrow id>", "type": "arrow"}`.
 
-A one-way binding loads, but the label or arrow detaches the first time the user moves the shape. `validate.py` reports these as errors.
+One-way bindings can detach during editing; the validator rejects them.
 
 ## Palette
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.4
+
+- Condense workflow and remove redundant format questions while retaining the complete spec, reciprocal bindings, overwrite scope and compressed-validation limits.
+
 ## 1.1.3
 
 - Condense instructions and reconcile generated versus manual layouts and existing overwrite authorization.
