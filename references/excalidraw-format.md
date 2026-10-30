@@ -1,5 +1,7 @@
 # Excalidraw file format reference
 
+Contents: [Standard file (.excalidraw)](#standard-file-excalidraw) · [Obsidian file (.excalidraw.md)](#obsidian-file-excalidrawmd) · [Text Elements](#text-elements) · [Drawing](#drawing) · [Element fields](#element-fields) · [Bindings must be two-way](#bindings-must-be-two-way) · [Palette](#palette)
+
 Use this when editing a drawing by hand or when `build_diagram.py` cannot express the layout. Always run `scripts/validate.py` on the result. Checked against `@excalidraw/excalidraw` 0.18 and the Obsidian Excalidraw plugin's file layout.
 
 ## Standard file (.excalidraw)

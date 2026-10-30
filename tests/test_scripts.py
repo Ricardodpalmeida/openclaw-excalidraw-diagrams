@@ -165,5 +165,42 @@ class ValidateTests(unittest.TestCase):
             self.assertFalse(result["ok"])
 
 
+    def test_malformed_elements_return_errors(self):
+        content, _ = bd.build(spec(), "excalidraw")
+        cases = [("id", []), ("type", []), ("x", "bad"), ("width", float("nan")),
+                 ("opacity", "opaque"), ("boundElements", [None]),
+                 ("boundElements", [{"id": [], "type": "text"}]),
+                 ("containerId", []), ("startBinding", "bad"), ("fontFamily", [])]
+        for field, value in cases:
+            with self.subTest(field=field, value=value):
+                elements = json.loads(content)["elements"]
+                elements[0][field] = value
+                errors, _, _ = val.check_elements(elements)
+                self.assertTrue(errors)
+
+    def test_invalid_utf8_returns_json_error(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "invalid.excalidraw"
+            path.write_bytes(b"\xff")
+            self.assertFalse(val.validate(path)["ok"])
+
+    def test_frontmatter_key_in_body_is_not_frontmatter(self):
+        content, _ = bd.build(spec(), "obsidian")
+        content = content.replace("excalidraw-plugin: parsed", "", 1)
+        content += "\nexcalidraw-plugin: parsed\n"
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "invalid.md"
+            path.write_text(content, encoding="utf-8")
+            self.assertFalse(val.validate(path)["ok"])
+
+    def test_reverse_arrow_binding_is_checked(self):
+        content, _ = bd.build(spec(), "excalidraw")
+        elements = json.loads(content)["elements"]
+        arrow = next(el for el in elements if el["type"] == "arrow")
+        arrow["startBinding"] = None
+        errors, _, _ = val.check_elements(elements)
+        self.assertTrue(any("bind back" in error for error in errors))
+
+
 if __name__ == "__main__":
     unittest.main()

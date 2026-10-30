@@ -12,6 +12,7 @@ Usage:
 from __future__ import annotations
 
 import json
+import math
 import re
 import sys
 from pathlib import Path
@@ -27,9 +28,13 @@ DRAWING_RE = re.compile(r"## Drawing\s*\n```(json|compressed-json)\n(.*?)\n```",
 def extract_scene(path: Path) -> Tuple[Optional[Dict[str, Any]], List[str], List[str]]:
     errors: List[str] = []
     warnings: List[str] = []
-    text = path.read_text(encoding="utf-8")
+    try:
+        text = path.read_text(encoding="utf-8")
+    except (OSError, UnicodeError) as exc:
+        return None, [f"cannot read UTF-8 file: {exc}"], warnings
     if path.suffix == ".md":
-        if not re.search(r"^excalidraw-plugin:\s*\S+", text, re.M):
+        frontmatter = re.match(r"\A---[^\S\n]*\n(.*?)\n---(?:\n|$)", text, re.S)
+        if not frontmatter or not re.search(r"^excalidraw-plugin:[ \t]*\S+", frontmatter.group(1), re.M):
             errors.append("frontmatter is missing 'excalidraw-plugin: parsed'")
         match = DRAWING_RE.search(text)
         if not match:
@@ -75,6 +80,12 @@ def check_elements(elements: List[Any]) -> Tuple[List[str], List[str], Dict[str,
         if missing:
             errors.append(f"element {i} is missing {', '.join(missing)}")
             continue
+        if not isinstance(el["id"], str) or not el["id"]:
+            errors.append(f"element {i}: id must be a non-empty string")
+            continue
+        if not isinstance(el["type"], str):
+            errors.append(f"{el['id']}: type must be a string")
+            continue
         if el["id"] in by_id:
             errors.append(f"duplicate id {el['id']}")
         by_id[el["id"]] = el
@@ -83,11 +94,33 @@ def check_elements(elements: List[Any]) -> Tuple[List[str], List[str], Dict[str,
         if el.get("isDeleted"):
             continue
         live.append(el)
-        for key in ("x", "y", "width", "height"):
-            if not isinstance(el[key], (int, float)):
-                errors.append(f"{el['id']}: {key} must be a number")
-        if el.get("boundElements") is not None and not isinstance(el["boundElements"], list):
-            errors.append(f"{el['id']}: boundElements must be a list or null")
+        for key in ("x", "y", "width", "height", "opacity", "fontSize", "fontFamily"):
+            if key in el and (type(el[key]) not in (int, float) or not math.isfinite(el[key])):
+                errors.append(f"{el['id']}: {key} must be a finite number")
+        if el.get("containerId") is not None and not isinstance(el["containerId"], str):
+            errors.append(f"{el['id']}: containerId must be a string or null")
+        bounds = el.get("boundElements")
+        if bounds is not None and (not isinstance(bounds, list) or any(
+            not isinstance(b, dict) or not isinstance(b.get("id"), str)
+            or b.get("type") not in ("text", "arrow") for b in bounds
+        )):
+            errors.append(f"{el['id']}: boundElements must contain text/arrow references or be null")
+        for side in ("startBinding", "endBinding"):
+            binding = el.get(side)
+            if binding is not None and (not isinstance(binding, dict) or not isinstance(binding.get("elementId"), str)):
+                errors.append(f"{el['id']}: {side} must reference an element or be null")
+        if el["type"] in {"arrow", "line"}:
+            points = el.get("points")
+            if not isinstance(points, list) or len(points) < 2 or any(
+                not isinstance(pt, list) or len(pt) != 2 or any(
+                    type(n) not in (int, float) or not math.isfinite(n) for n in pt
+                ) for pt in points
+            ):
+                errors.append(f"{el['id']}: points must contain at least two finite coordinate pairs")
+
+    # Structural errors must not reach geometry or binding checks.
+    if errors:
+        return errors, warnings, {}
 
     for el in live:
         eid = el["id"]
@@ -124,6 +157,10 @@ def check_elements(elements: List[Any]) -> Tuple[List[str], List[str], Dict[str,
                 errors.append(f"{eid}: boundElements lists missing element {bound.get('id')}")
             elif bound.get("type") == "text" and other.get("containerId") != eid:
                 errors.append(f"{eid}: bound text {other['id']} has containerId {other.get('containerId')!r}")
+            elif bound.get("type") == "arrow" and not any(
+                (other.get(side) or {}).get("elementId") == eid for side in ("startBinding", "endBinding")
+            ):
+                errors.append(f"{eid}: bound arrow {other['id']} does not bind back to this element")
 
     shapes = [el for el in live if el["type"] in SHAPES and el.get("opacity", 100) >= 60]
     for i, a in enumerate(shapes):

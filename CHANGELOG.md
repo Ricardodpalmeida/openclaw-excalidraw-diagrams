@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.3
+
+- Condense instructions and reconcile generated versus manual layouts and existing overwrite authorization.
+- Reject malformed geometry/bindings and invalid UTF-8 without crashing. Check frontmatter placement and reciprocal arrow references.
+- Clarify compressed-file validation limits and supported cycles versus self-loops.
+
 ## 1.1.2
 
 - Licensed under MIT-0 (MIT No Attribution), declared in the SKILL.md frontmatter and a LICENSE file. No code changes.
