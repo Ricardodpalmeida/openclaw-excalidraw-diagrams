@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Quantified labels (24 characters per line, 3 lines per node), a pass condition (validate ok with 0 errors, 0 crossing warnings or each one reported), an output block and a 4-question final check, from the 1 November 2026 skills audit. Drawing behaviour is unchanged.
+
 ## 1.1.5
 
 - Restore the public display name to Excalidraw Diagrams for Obsidian. Drawing behavior is unchanged.
