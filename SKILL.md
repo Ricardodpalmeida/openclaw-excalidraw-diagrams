@@ -28,7 +28,8 @@ Python 3.9+ standard library; no network. `build_diagram.py` generates layout, l
    ```
 
 3. Inspect JSON results. Pass condition: `validate.py` reports `"ok": true` with 0 errors, and the build reports 0 "crosses node" warnings, or every remaining one is listed in the report. To clear a crossing warning, change direction, rank or node order. Existing files need `--force`, used only within overwrite authorization already given. `--format obsidian|excalidraw` overrides the extension; `--tag <tag>` adds an Obsidian tag.
-4. Report with the block below. Remove only the temporary spec you created. Compressed scenes receive **frontmatter validation only**; decompress through the Obsidian plugin and revalidate before claiming scene validation.
+4. Open the result in the intended renderer when available. At normal viewing size, check clipped or overlapping labels, arrow endpoints and legibility. Structural validation does not prove visual quality. Fix visible defects and revalidate; if rendering is unavailable, report "not inspected" rather than claiming a visual pass. Do not upload a private diagram to another service just to preview it.
+5. Report with the block below. Remove only the temporary spec you created. Compressed scenes receive **frontmatter validation only**; decompress through the Obsidian plugin and revalidate before claiming scene validation.
 
 ## Spec
 
@@ -72,6 +73,7 @@ For layouts the builder cannot express, such as grids/matrices, use the [file fo
 Path:      <folder>/<name>.excalidraw.md or .excalidraw
 Format:    obsidian | excalidraw
 Drawing:   <n> nodes, <n> edges, <n> groups
+Visual:    <renderer inspected and result, or "not inspected: reason">
 Warnings:  <each remaining warning, or "none">
 ```
 
@@ -81,3 +83,4 @@ Warnings:  <each remaining warning, or "none">
 2. Are there 0 "crosses node" warnings, or is each one listed in Warnings?
 3. Does every label fit 24 characters per line and 3 lines?
 4. Was an existing file overwritten only with `--force` inside an authorization already given?
+5. Was the rendered drawing inspected, or the missing visual check stated explicitly?

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.7 (2026-11-07)
+
+- Add a rendered-drawing check for label fit, arrow endpoints and legibility, separate from structural validation.
+- Report the renderer and visual result, or explain that inspection was unavailable. Private diagrams are not uploaded to another service merely for preview.
+- Builder, file formats and validation scripts are unchanged.
+
 ## 1.1.6
 
 - Quantified labels (24 characters per line, 3 lines per node), a pass condition (validate ok with 0 errors, 0 crossing warnings or each one reported), an output block and a 4-question final check, from the 1 November 2026 skills audit. Drawing behaviour is unchanged.

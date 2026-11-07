@@ -74,7 +74,8 @@ Left to right works too, with groups, colors, a decision and an answer that loop
 1. The agent writes a temporary spec of nodes, edges and optional groups, for the destination and format you asked for.
 2. `build_diagram.py` assigns layers, routes edges around nodes, sizes every label and binds text and arrows in both directions, with deterministic IDs.
 3. `validate.py` checks the structure, the two-way bindings, fonts and overlapping shapes, and warns about edge crossings.
-4. The agent fixes errors, adjusts direction, rank or node order for crossings, and returns the file path with any warning it could not resolve.
+4. The agent fixes errors and adjusts direction, rank or node order for crossings. When the intended renderer is available, it also checks label fit, arrow endpoints and legibility.
+5. It returns the file path, any unresolved warnings and the visual inspection result. If rendering was unavailable, it says so; a valid JSON scene is not a visual pass.
 
 | Spec field | Values |
 |---|---|
