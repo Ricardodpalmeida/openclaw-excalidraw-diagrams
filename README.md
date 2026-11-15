@@ -12,6 +12,10 @@
 
 Ask an agent for an Excalidraw diagram and it often writes the JSON by hand: boxes overlap, labels spill out and arrows float loose from their shapes. **Excalidraw Diagrams** is an Agent Skill that has your agent describe the diagram as a short spec of boxes, arrows and groups, then hands the drawing to a deterministic Python builder. You get a real Excalidraw file for Obsidian or excalidraw.com, laid out, labelled and bound, so it stays editable: move a box and its arrows follow.
 
+## Quick navigation
+
+[Examples](#from-spec-to-drawing) · [Workflow and spec](#how-it-works) · [Install](#install) · [Package contents](#what-is-inside)
+
 ## From spec to drawing
 
 Real output, not a mock-up. The spec on the left is [examples/ci-pipeline.json](examples/ci-pipeline.json); the drawing on the right is what `build_diagram.py` wrote from it, exported with Excalidraw's own renderer.

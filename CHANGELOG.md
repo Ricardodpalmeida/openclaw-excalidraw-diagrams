@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.8 (2026-11-15)
+
+- Documentation only: add README quick-navigation links. Agent instructions, scripts, references, examples, dependencies and configuration are unchanged.
+
 ## 1.1.7 (2026-11-07)
 
 - Add a rendered-drawing check for label fit, arrow endpoints and legibility, separate from structural validation.
