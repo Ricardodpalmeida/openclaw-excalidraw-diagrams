@@ -14,7 +14,7 @@ Ask an agent for an Excalidraw diagram and it often writes the JSON by hand: box
 
 ## Quick navigation
 
-[Examples](#from-spec-to-drawing) · [Workflow and spec](#how-it-works) · [Install](#install) · [Package contents](#what-is-inside)
+[Examples](#from-spec-to-drawing) · [Workflow and spec](#how-it-works) · [Install](#install) · [Package contents](#what-is-inside) · [Release notes](CHANGELOG.md)
 
 ## From spec to drawing
 
